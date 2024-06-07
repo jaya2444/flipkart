@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 // Replace with your MongoDB URI
-const MONGODB_URI ="mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/shivansh?retryWrites=true&w=majority&appName=FlipkartData";
+const MONGODB_URI ="mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/?retryWrites=true&w=majority&appName=FlipkartData";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -36,14 +36,13 @@ const flipkartSchema = new mongoose.Schema(
 const Flipkart = mongoose.model("flipkart", flipkartSchema);
 
 // Route to get data in chunks of 20
-app.get("/data", async (req, res) => { N 
-//   const page = parseInt(req.query.page) || 1;
-//   const limit = 20;
-//   const skip = (page - 1) * limit;
+app.get("/data", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 20;
+  const skip = (page - 1) * limit;
 
   try {
-      const data = await Flipkart.find()
-        //   .skip(skip).limit(limit);
+    const data = await Flipkart.find().skip(skip).limit(limit);
       res.json(data);
   } catch (error) {
     res.status(500).json({ message: "Error fetching data", error });
@@ -54,4 +53,4 @@ const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-server.timeout = 300000; 
+server.timeout = 300000; // 300000 milliseconds = 5 minutes
