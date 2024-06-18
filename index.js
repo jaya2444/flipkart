@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+const cors = require("cors"); // ADD THIS LINE
 const app = express();
 const PORT = 3000;
-app.use(cors());
+app.use(cors()); // ADD THIS LINE
 // Replace with your MongoDB URI
-const MONGODB_URI ="mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/shivansh?retryWrites=true&w=majority&appName=FlipkartData";
+const MONGODB_URI =
+  "mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/shivansh?retryWrites=true&w=majority&appName=FlipkartData";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -36,14 +37,14 @@ const flipkartSchema = new mongoose.Schema(
 const Flipkart = mongoose.model("flipkart", flipkartSchema);
 
 // Route to get data in chunks of 20
-app.get("/data", cors(), async (req, res) => {
+app.get("/data", cors(), async (req, res) => { // ADD THIS LINE
   const page = parseInt(req.query.page) || 1;
   const limit = 2000;
   const skip = (page - 1) * limit;
 
   try {
     const data = await Flipkart.find().skip(skip).limit(limit);
-      res.json(data);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ message: "Error fetching data", error });
   }
