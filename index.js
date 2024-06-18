@@ -1,9 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
 const app = express();
 const PORT = 3000;
-
+app.use(cors());
 // Replace with your MongoDB URI
 const MONGODB_URI ="mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/shivansh?retryWrites=true&w=majority&appName=FlipkartData";
 mongoose.connect(MONGODB_URI, {
@@ -36,9 +36,9 @@ const flipkartSchema = new mongoose.Schema(
 const Flipkart = mongoose.model("flipkart", flipkartSchema);
 
 // Route to get data in chunks of 20
-app.get("/data", async (req, res) => {
+app.get("/data", cors(), async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = 20;
+  const limit = 2000;
   const skip = (page - 1) * limit;
 
   try {
