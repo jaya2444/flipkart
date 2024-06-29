@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require ("express");
 const mongoose = require("mongoose");
 const cors = require("cors"); // ADD THIS LINE
 const app = express();
@@ -6,10 +6,10 @@ const PORT = 3000;
 app.use(cors()); // ADD THIS LINE
 // Replace with your MongoDB URI
 const MONGODB_URI =
-  "mongodb+srv://shivansh:shivansh@flipkartdata.koizn7a.mongodb.net/shivansh?retryWrites=true&w=majority&appName=FlipkartData";
+  "mongodb+srv://jaya:jaya@cluster0.oyvdwwr.mongodb.net/jaya?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true,    
 });
 
 const db = mongoose.connection;
